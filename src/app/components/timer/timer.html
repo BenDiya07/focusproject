@@ -1,0 +1,12 @@
+<div class="mini-timer">
+  <div class="time-display" [class.running]="timerService.isRunning$ | async">{{ displayTime$ | async }}</div>
+  
+  <div class="controls">
+    @if (!(timerService.isRunning$ | async)) {
+      <button (click)="timerService.start()">▶</button>
+    } @else {
+      <button (click)="timerService.pause()">II</button>
+    }
+    <button (click)="timerService.reset()" class="btn-reset">↺</button>
+  </div>
+</div>

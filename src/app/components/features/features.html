@@ -1,0 +1,27 @@
+<section class="features-section">
+  <div class="section-header">
+    <span class="pre-title">NOS OUTILS</span>
+    <h2 class="main-title">Conçu pour votre succès</h2>
+  </div>
+
+  <div class="features-grid">
+    @for (item of features; track item.title) {
+      <div class="feature-card" [class.dark-theme]="item.dark">
+        <span class="card-number">{{ item.subtitle }}</span>
+        
+        <div class="icon-container">
+          <img [src]="item.icon" [alt]="item.title">
+        </div>
+
+        <h3 class="feature-title">{{ item.title }}</h3>
+
+        @if (item.title === 'Concentration') {
+          <app-timer></app-timer>
+        } @else {
+          <p class="feature-desc">{{ item.desc }}</p>
+          <a href="#" class="learn-more">En savoir plus →</a>
+        }
+      </div>
+    }
+  </div>
+</section>
