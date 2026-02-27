@@ -1,83 +1,127 @@
-// Utilisation de variables CSS (:host) pour une meilleure maintenabilité et thématisation.
-// Les couleurs sont centralisées et peuvent être facilement modifiées.
+// Variables pour un theming et une maintenance facilités
+// Ces variables peuvent être surchargées par un thème global (ex: dark mode)
 :host {
-  --studio-bg-color: #f8f9fa;
-  --sound-card-bg: #ffffff;
-  --sound-card-shadow: rgba(0, 0, 0, 0.08);
-  --sound-card-hover-shadow: rgba(0, 0, 0, 0.12);
-  --sound-card-active-bg: #eff6ff; // Bleu très clair pour l'état actif
-  --sound-card-active-border: #3b82f6; // Le bleu utilisé dans le reste de l'application
-  --text-color: #1f2937;
-  --volume-slider-thumb: #3b82f6;
+  // On définit le composant comme un bloc qui prend toute la hauteur
+  display: block;
+  min-height: 100vh;
+
+  // L'image de fond est appliquée ici pour couvrir toute la page
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/images/loki.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed; // Effet parallaxe au scroll
+
+  --primary-color: #6c5ce7;
+  --primary-light-color: #f0f3ff;
+  --text-color: #2d3436;
+  --card-background: white;
+  --card-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+  --card-hover-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.1);
 }
 
 .studio-container {
+  padding: 120px 2rem 60px; // Padding pour le header fixe et le bas de page
+
   display: flex;
   flex-direction: column;
-  align-items: center;
-  // Le padding-top est augmenté pour laisser de la place au header (qui est en position fixed).
-  // La valeur (ex: 6rem) doit correspondre à la hauteur de votre header.
-  padding: 6rem 2rem 4rem;
-  background-color: var(--studio-bg-color);
-  min-height: 50vh;
+  gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: white; // Titre en blanc pour le contraste
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+  }
 }
 
-.title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  margin-bottom: 2.5rem;
-  color: var(--text-color);
-  text-align: center;
-}
-
-// Utilisation de Grid pour un alignement propre et responsive des cartes de son.
 .sound-grid {
   display: grid;
-  // Crée des colonnes réactives qui s'adaptent à la largeur de l'écran.
+  // Grille responsive qui s'adapte à la largeur disponible
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1.5rem;
-  width: 100%;
-  max-width: 800px;
-  margin-bottom: 3.5rem;
 }
 
-// Convention BEM-like (sound-card, sound-card__emoji) pour une structure claire.
 .sound-card {
+  // Effet "verre dépoli" (Glassmorphism)
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  background-color: var(--sound-card-bg);
-  border-radius: 16px;
-  border: 2px solid transparent;
-  box-shadow: 0 4px 12px var(--sound-card-shadow);
+  gap: 1rem;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--card-shadow);
   text-align: center;
+  // Opacité à 0 pour l'animation d'entrée avec anime.js
+  opacity: 0;
+
+  // Transitions ciblées pour éviter les conflits avec anime.js
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px var(--sound-card-hover-shadow);
+    box-shadow: var(--card-hover-shadow);
+  }
+
+  .emoji {
+    font-size: 3rem;
+    transition: transform 0.3s ease;
+    user-select: none; // Empêche la sélection du texte de l'emoji
+  }
+
+  span:not(.emoji) {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    transition: color 0.3s ease;
   }
 
   &.active {
-    background-color: var(--sound-card-active-bg);
-    border-color: var(--sound-card-active-border);
-    transform: translateY(-2px); // Léger soulèvement pour l'état actif
-  }
+    background: rgba(26, 79, 156, 0.3); // Bleu translucide
+    border-color: #3b82f6;
+    box-shadow: 0 0 20px rgba(26, 79, 156, 0.4);
 
-  &__emoji {
-    font-size: 2.5rem;
-    margin-bottom: 0.75rem;
-    user-select: none; // Empêche l'emoji d'être sélectionné au clic
+    .emoji {
+      transform: scale(1.1);
+    }
   }
+}
 
-  &__name {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text-color);
-    user-select: none;
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  height: 20px;
+  gap: 3px;
+  margin-top: 15px;
+  justify-content: center;
+
+  .bar {
+    width: 3px;
+    background: var(--primary-color); // Utilisation de la variable
+    border-radius: 2px;
+    animation: bounce 0.8s ease-in-out infinite alternate;
+
+    // Hauteurs et délais variés pour un effet plus dynamique
+    &:nth-child(1) { height: 60%; animation-delay: 0s; }
+    &:nth-child(2) { height: 100%; animation-delay: 0.2s; }
+    &:nth-child(3) { height: 80%; animation-delay: 0.4s; }
+    &:nth-child(4) { height: 40%; animation-delay: 0.6s; }
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: scaleY(0.2);
+  }
+  to {
+    transform: scaleY(1);
   }
 }
 
@@ -85,13 +129,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  gap: 1rem;
+  // On applique aussi le Glassmorphism ici pour la cohérence
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
   max-width: 400px;
+  margin: 0 auto;
 
-  &__slider {
-    // Utilisation de `accent-color` pour un style moderne et simple du slider.
-    accent-color: var(--volume-slider-thumb);
+  label {
+    font-weight: 600;
+    color: white;
+  }
+
+  input[type="range"] {
     width: 100%;
     cursor: pointer;
+    // Style moderne pour le slider, utilise la couleur primaire
+    accent-color: var(--primary-color);
   }
 }

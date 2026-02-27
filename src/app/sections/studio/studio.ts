@@ -1,6 +1,7 @@
+import { Component, inject, AfterViewInit } from '@angular/core'; // Ajoute AfterViewInit
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
 import { AudioService } from '../../services/audio.service';
+import { animate, stagger } from 'animejs';
 
 @Component({
   selector: 'app-studio',
@@ -9,14 +10,10 @@ import { AudioService } from '../../services/audio.service';
   templateUrl: './studio.html',
   styleUrl: './studio.scss'
 })
-export class Studio {
-  // On injecte le service pour l'utiliser dans le HTML
+export class Studio implements AfterViewInit {
   public audioService = inject(AudioService);
-
-  // On expose les sons disponibles pour itérer dans le template
   readonly sounds = this.audioService.availableSounds;
 
-  // On centralise les détails des sons pour un code plus propre et maintenable
   private readonly soundDetails: Record<string, { emoji: string; name: string }> = {
     rain: { emoji: '🌧️', name: 'Pluie douce' },
     cafe: { emoji: '☕', name: 'Cafétéria' },
@@ -24,27 +21,44 @@ export class Studio {
     lofi: { emoji: '🎧', name: 'Lofi Beat' },
   };
 
-  // Méthodes pour l'affichage
-  getEmoji(sound: string): string {
-    return this.soundDetails[sound]?.emoji || '🎵';
-  }
+  // 1️⃣ Animation d'entrée quand on arrive sur la page
+ngAfterViewInit() {
+  animate(
+    '.sound-card',
+    {
+    
+    scale: [0.9, 1],
+    opacity: [0, 1],
+    translateY: [20, 0],
+    delay: stagger(100),
+    easing: 'easeOutExpo',
+    duration: 800
+  });
+}
 
-  getName(sound: string): string {
-    return this.soundDetails[sound]?.name || sound;
-  }
+  // 2️⃣ Animation boostée quand on clique sur une musique
+ play(sound: string) {
+  this.audioService.play(sound);
 
-  // Méthodes d'action
-  play(sound: string) {
-    this.audioService.play(sound);
+  if (this.audioService.activeSound() === sound) {
+    animate(
+      `.sound-card.active`,
+      {
+      
+      scale: [1, 1.05, 1],
+      duration: 400,
+      easing: 'easeInOutQuad'
+    });
   }
+}
 
+  getEmoji(sound: string): string { return this.soundDetails[sound]?.emoji || '🎵'; }
+  getName(sound: string): string { return this.soundDetails[sound]?.name || sound; }
+  
   updateVolume(event: Event) {
     const input = event.target as HTMLInputElement;
     this.audioService.setVolume(parseFloat(input.value));
   }
 
-  // Getter pour simplifier l'accès au volume dans le HTML
-  get volume() {
-    return this.audioService.volume();
-  }
+  get volume() { return this.audioService.volume(); }
 }
