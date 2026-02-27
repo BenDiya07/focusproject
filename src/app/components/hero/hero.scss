@@ -73,11 +73,19 @@
 // Responsive : Ajustement pour mobile
 @media (max-width: 768px) {
   .hero-section {
-    height: 60vh;
+    // On réduit la hauteur et on ajoute un padding-top pour dégager le header
+    height: 65vh;
     border-bottom-right-radius: 50px;
+    padding: 120px 5% 0;
     
     .main-title {
-      font-size: 3rem;
+      font-size: 2.8rem; // Titre plus grand pour une meilleure visibilité
+      line-height: 1.1;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
     }
   }
 }

@@ -25,9 +25,13 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); // 3 colonnes égales
     gap: 30px;
-    
+
     @media (max-width: 992px) {
-      grid-template-columns: 1fr; // 1 colonne sur mobile
+      grid-template-columns: repeat(2, 1fr); // 2 colonnes sur tablette
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr; // 1 SEULE colonne sur mobile (Indispensable)
     }
   }
 

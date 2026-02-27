@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .studio-preview {
   padding: 100px 2rem;
   display: flex;
@@ -11,7 +13,7 @@
   @media (max-width: 968px) {
     flex-direction: column;
     text-align: center;
-    padding: 60px 1.5rem;
+    padding: 40px 1rem;
     gap: 3rem;
   }
 }
@@ -110,7 +112,7 @@
   box-shadow: 0 4px 15px rgba(26, 79, 156, 0.3);
 
   &:hover {
-    background: darken(#1a4f9c, 5%);
+    background: color.adjust(#1a4f9c, $lightness: -5%);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(26, 79, 156, 0.4);
   }
@@ -154,6 +156,11 @@
     background: radial-gradient(circle, rgba(26, 79, 156, 0.1) 0%, rgba(26, 79, 156, 0) 70%);
     z-index: 1;
     animation: pulse 3s infinite ease-in-out;
+
+    @media (max-width: 480px) {
+      width: 250px; // On réduit le cercle sur tout petit écran
+      height: 250px;
+    }
   }
 }
 
