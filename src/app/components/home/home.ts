@@ -7,7 +7,7 @@ import { Footer } from "../footer/footer";
 
 @Component({
   selector: 'app-home',
-  imports: [Header, Hero, Features, About, Footer],
+  imports: [Header, Hero, Features, About],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

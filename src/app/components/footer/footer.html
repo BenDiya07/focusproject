@@ -1,21 +1,29 @@
 <footer class="main-footer">
   <div class="footer-content">
     
-    <div class="footer-logo">
+    <div class="footer-logo" routerLink="/" style="cursor: pointer;">
       <img src="images/read.png" alt="Study Chill">
       <h2>Study chill</h2>
     </div>
 
     <div class="social-links">
-      <a href="#"><img src="images/insta.webp" alt="Insta"></a>
-      <a href="#"><img src="images/facebook.webp" alt="FB"></a>
-      <a href="#"><img src="images/linke.webp" alt="In"></a>
+      @for (link of socials; track link.name) {
+        <a [href]="link.url" target="_blank" rel="noopener noreferrer">
+          <img [src]="link.icon" [alt]="link.name">
+        </a>
+      }
     </div>
 
     <div class="footer-bottom">
-      <a href="#">Mentions légales</a>
-      <a href="#">Contact</a>
-      <a href="#">Conditions générales</a>
+      <div class="legal-links">
+        
+        <a routerLink="/contact">Contact</a>
+        
+      </div>
+      
+      <p class="copyright">
+        © {{ currentYear }} Study Chill. Made for deep thinkers.
+      </p>
     </div>
 
   </div>

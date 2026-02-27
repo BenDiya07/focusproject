@@ -1,0 +1,154 @@
+// Variables pour un theming et une maintenance facilités
+// Ces variables peuvent être surchargées par un thème global (ex: dark mode)
+:host {
+  // On définit le composant comme un bloc qui prend toute la hauteur
+  display: block;
+  min-height: 100vh;
+
+  // L'image de fond est appliquée ici pour couvrir toute la page
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/images/loki.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed; // Effet parallaxe au scroll
+
+  --primary-color: #6c5ce7;
+  --primary-light-color: #f0f3ff;
+  --text-color: #2d3436;
+  --card-background: white;
+  --card-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+  --card-hover-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.1);
+}
+
+.studio-container {
+  padding: 120px 2rem 60px; // Padding pour le header fixe et le bas de page
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: white; // Titre en blanc pour le contraste
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+  }
+}
+
+.sound-grid {
+  display: grid;
+  // Grille responsive qui s'adapte à la largeur disponible
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+}
+
+.sound-card {
+  // Effet "verre dépoli" (Glassmorphism)
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  // Opacité à 0 pour l'animation d'entrée avec anime.js
+  opacity: 0;
+
+  // Transitions ciblées pour éviter les conflits avec anime.js
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-hover-shadow);
+  }
+
+  .emoji {
+    font-size: 3rem;
+    transition: transform 0.3s ease;
+    user-select: none; // Empêche la sélection du texte de l'emoji
+  }
+
+  span:not(.emoji) {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  &.active {
+    background: rgba(26, 79, 156, 0.3); // Bleu translucide
+    border-color: #3b82f6;
+    box-shadow: 0 0 20px rgba(26, 79, 156, 0.4);
+
+    .emoji {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  height: 20px;
+  gap: 3px;
+  margin-top: 15px;
+  justify-content: center;
+
+  .bar {
+    width: 3px;
+    background: var(--primary-color); // Utilisation de la variable
+    border-radius: 2px;
+    animation: bounce 0.8s ease-in-out infinite alternate;
+
+    // Hauteurs et délais variés pour un effet plus dynamique
+    &:nth-child(1) { height: 60%; animation-delay: 0s; }
+    &:nth-child(2) { height: 100%; animation-delay: 0.2s; }
+    &:nth-child(3) { height: 80%; animation-delay: 0.4s; }
+    &:nth-child(4) { height: 40%; animation-delay: 0.6s; }
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: scaleY(0.2);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.volume-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  // On applique aussi le Glassmorphism ici pour la cohérence
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  max-width: 400px;
+  margin: 0 auto;
+
+  label {
+    font-weight: 600;
+    color: white;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+    // Style moderne pour le slider, utilise la couleur primaire
+    accent-color: var(--primary-color);
+  }
+}

@@ -1,0 +1,49 @@
+<section class="contact-container">
+  <div class="contact-card">
+    <div class="contact-info">
+      <h2>Discutons !</h2>
+      <p>Une question sur <strong>Study Chill</strong> ou une opportunité ? Envoyez-moi un message.</p>
+      
+      <div class="info-item">
+        <span class="icon">📍</span>
+        <p>Kinshasa, RDC</p>
+      </div>
+      
+      <div class="social-pills">
+        <a href="https://www.linkedin.com/in/beni-diyavanga-ba6b9b2b1" target="_blank" class="pill">LinkedIn</a>
+        <a href="https://github.com/BenDiya07" target="_blank "   class="pill">GitHub</a>
+      </div>
+    </div>
+
+    <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="contact-form">
+      <div class="input-group">
+        <label>Nom</label>
+        <input type="text" name="name" ngModel required placeholder="Votre nom">
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" name="email" ngModel required email placeholder="email@exemple.com">
+      </div>
+
+      <div class="input-group">
+        <label>Message</label>
+        <textarea name="message" ngModel required rows="4" placeholder="Bonjour..."></textarea>
+      </div>
+
+      <button type="submit" [disabled]="!contactForm.valid || isSending()" class="btn-send">
+        @if (isSending()) {
+          Envoi en cours...
+        } @else {
+          Envoyer le message
+        }
+      </button>
+
+      @if (isSuccess()) {
+        <div class="success-msg">
+          ✨ Message envoyé avec succès ! (Simulation)
+        </div>
+      }
+    </form>
+  </div>
+</section>

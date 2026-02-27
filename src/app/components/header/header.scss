@@ -1,11 +1,22 @@
 .transparent-header {
   position: absolute; // Indispensable pour le superposer au Hero
+  // On le passe en 'fixed' pour qu'il soit toujours visible et détaché du flux.
+  // Attention : cela peut nécessiter d'ajouter un padding-top au contenu principal.
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000; // Pour qu'il soit au-dessus de l'image et de l'overlay
   background: transparent;
   padding: 30px 0;
+
+  // Style "verre dépoli" (Glassmorphism) pour la lisibilité sur tous les fonds
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px); // Pour Safari
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  padding: 1rem 0;
   transition: all 0.4s ease;
 
   .nav-container {
@@ -30,26 +41,35 @@
 
   .logo-text {
     color: white;
+    // Couleur plus foncée pour le contraste
+    color: #1a4f9c;
     font-family: 'Playfair Display', serif;
     font-style: italic;
     font-size: 1.5rem;
+    font-weight: 700;
   }
 
   .nav-links {
     display: flex;
     gap: 40px;
+    gap: 2.5rem;
     list-style: none;
 
     li a {
       color: white;
+      // Texte gris foncé pour une bonne lisibilité
+      color: #333;
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 300;
       letter-spacing: 1px;
       transition: opacity 0.3s;
+      font-weight: 500;
+      transition: color 0.3s ease;
 
       &:hover {
         opacity: 0.7;
+        color: #1a4f9c; // Couleur d'accent au survol
       }
     }
   }
@@ -64,6 +84,11 @@
     
     .logo-text, .nav-links li a {
       color: #1a1a1a; // Le texte devient foncé
+      // Style pour le lien actif (via RouterLinkActive)
+      &.active {
+        color: #1a4f9c;
+        font-weight: 700;
+      }
     }
   }
 }

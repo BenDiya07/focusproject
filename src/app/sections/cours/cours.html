@@ -1,0 +1,26 @@
+<div class="cours-container">
+  <h1>Ma Liste de Tâches</h1>
+
+  <form class="add-task-form" (submit)="addTask(taskInput.value); taskInput.value = ''; $event.preventDefault()">
+    <input #taskInput type="text" placeholder="Nouvelle tâche à accomplir..." autocomplete="off">
+    <button type="submit">Ajouter</button>
+  </form>
+
+  <div class="task-list">
+    @for (task of tasks(); track task.id) {
+      <div class="task-item" [class.completed]="task.completed">
+        <div class="task-content" (click)="toggleTask(task.id)">
+          <span class="checkbox"></span>
+          <span class="task-title">{{ task.title }}</span>
+        </div>
+        <button class="delete-btn" (click)="deleteTask(task.id)" aria-label="Supprimer la tâche">
+          &times;
+        </button>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <p>✨ Aucune tâche pour le moment. Bravo !</p>
+      </div>
+    }
+  </div>
+</div>

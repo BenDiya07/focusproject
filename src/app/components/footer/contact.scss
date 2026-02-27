@@ -1,0 +1,99 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  // On réutilise le fond global pour la cohérence
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('/images/cars.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  padding-top: 80px; // Espace pour le header fixe
+}
+
+.contact-container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+
+  .contact-card {
+    background: rgba(22, 25, 42, 0.6); // Un peu plus sombre pour la lisibilité
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    max-width: 900px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+  }
+
+  .contact-info {
+    background: linear-gradient(135deg, #1a4f9c, #0d2a52);
+    padding: 40px;
+    color: white;
+    
+    h2 { font-size: 2rem; margin-bottom: 20px; font-family: 'Playfair Display', serif; }
+    .info-item { display: flex; align-items: center; gap: 10px; margin-top: 30px; opacity: 0.9; }
+    
+    .social-pills {
+      margin-top: 40px;
+      display: flex;
+      gap: 10px;
+      .pill {
+        background: rgba(255,255,255,0.2);
+        padding: 8px 16px;
+        border-radius: 20px;
+        color: white;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: 0.3s;
+        &:hover { background: white; color: #1a4f9c; }
+      }
+    }
+  }
+
+  .contact-form {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      label { font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+      input, textarea {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 12px;
+        border-radius: 10px;
+        color: white;
+        font-family: inherit;
+        &:focus { outline: none; border-color: #1a4f9c; background: rgba(255,255,255,0.1); }
+      }
+    }
+  }
+
+  .btn-send {
+    background: #1a4f9c;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+    &:hover:not(:disabled) { transform: translateY(-2px); background: #2163c4; box-shadow: 0 5px 15px rgba(26, 79, 156, 0.4); }
+  }
+
+  .success-msg { color: #4caf50; text-align: center; font-weight: 500; margin-top: 10px; }
+}
+
+@media (max-width: 768px) {
+  .contact-container .contact-card { grid-template-columns: 1fr; }
+}

@@ -1,25 +1,66 @@
-import { Component, inject } from '@angular/core';
-import { TimerService } from '../services/timer'; // Vérifie bien le chemin
-import { AsyncPipe } from '@angular/common';
-import { map } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, signal } from '@angular/core';
 
 @Component({
   selector: 'app-timer',
   standalone: true,
-  imports: [AsyncPipe], // On a besoin de AsyncPipe pour gérer l'observable dans le HTML
+  imports: [CommonModule],
   templateUrl: './timer.html',
   styleUrls: ['./timer.scss']
 })
-export class Timer {
-  // On injecte le service global pour que le timer continue même si on change de vue
-  public timerService = inject(TimerService);
+export class Timer implements OnDestroy {
+  totalSeconds = 25 * 60;
+  timeLeft = signal(25 * 60);
+  isActive = false;
+  private intervalId: any;
 
-  // Formate les secondes (ex: 1500) en texte (ex: "25:00")
-  displayTime$ = this.timerService.timeLeft$.pipe(
-    map(totalSeconds => {
-      const mins = Math.floor(totalSeconds / 60);
-      const secs = totalSeconds % 60;
-      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    })
-  );
+  toggleTimer() {
+    this.isActive = !this.isActive;
+    if (this.isActive) {
+      this.startTimer();
+    } else {
+      this.pauseTimer();
+    }
+  }
+
+  startTimer() {
+    this.intervalId = setInterval(() => {
+      if (this.timeLeft() > 0) {
+        this.timeLeft.update(t => t - 1);
+      } else {
+        this.pauseTimer();
+        this.isActive = false;
+        // TODO: Add sound notification here
+      }
+    }, 1000);
+  }
+
+  pauseTimer() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  resetTimer() {
+    this.pauseTimer();
+    this.isActive = false;
+    this.timeLeft.set(this.totalSeconds);
+  }
+
+  calculateOffset() {
+    const circumference = 283; // 2 * Math.PI * 45
+    const progress = this.timeLeft() / this.totalSeconds;
+    return circumference * (1 - progress);
+  }
+
+  formatTime() {
+    const time = this.timeLeft();
+    const mins = Math.floor(time / 60);
+    const secs = time % 60;
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  ngOnDestroy() {
+    this.pauseTimer();
+  }
 }

@@ -1,50 +1,164 @@
-.about-section {
-  padding: 100px 10%;
-  background-color: #fff;
+.studio-preview {
+  padding: 100px 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden; // Empêche le cercle pulsant de créer un scroll horizontal
 
-  .about-container {
+  @media (max-width: 968px) {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 1.5rem;
+    gap: 3rem;
+  }
+}
+
+.studio-content {
+  flex: 1;
+  max-width: 600px;
+
+  .pre-title {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #1a4f9c; // Ton bleu signature
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+    font-family: 'Playfair Display', serif; // Cohérence avec le header
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+
+  .description {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+
+    @media (max-width: 968px) {
+      justify-content: center;
+      text-align: left;
+    }
+  }
+
+  .icon {
+    font-size: 1.5rem;
+    background: rgba(26, 79, 156, 0.1); // Fond bleu très léger
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
-    gap: 50px;
+    justify-content: center;
+    border-radius: 12px;
+    flex-shrink: 0;
   }
 
-  .about-text {
-    flex: 1;
-    
-    .blue-dash {
-      width: 40px;
-      height: 8px;
-      background-color: #1a4f9c;
-      display: inline-block;
-      margin-right: 10px;
-    }
-
-    .sub-label {
-      font-weight: bold;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-    }
-
-    .about-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      font-style: italic;
-      margin: 20px 0;
-    }
-
-    .about-description {
-      color: #666;
-      line-height: 1.8;
-      font-style: italic;
-    }
+  strong {
+    display: block;
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 0.3rem;
   }
 
-  .about-image {
-    flex: 1;
+  p {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.btn-primary {
+  background: #1a4f9c;
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(26, 79, 156, 0.3);
+
+  &:hover {
+    background: darken(#1a4f9c, 5%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(26, 79, 156, 0.4);
+  }
+}
+
+.studio-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  .visual-card {
+    position: relative;
+    z-index: 2;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transform: rotate(3deg); // Petite rotation artistique
+    transition: transform 0.5s ease;
+    max-width: 400px;
+
+    &:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
     img {
       width: 100%;
-      border-radius: 4px;
-      box-shadow: 20px 20px 0px #f0f0f0; // Petit effet de décalage si désiré
+      height: auto;
+      display: block;
     }
   }
+
+  .pulse-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26, 79, 156, 0.1) 0%, rgba(26, 79, 156, 0) 70%);
+    z-index: 1;
+    animation: pulse 3s infinite ease-in-out;
+  }
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.6; }
+  50% { opacity: 0.3; }
+  100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
 }

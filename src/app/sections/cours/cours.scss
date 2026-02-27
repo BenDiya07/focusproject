@@ -1,0 +1,180 @@
+// Utilisation de variables pour la cohérence
+:host {
+  --primary-color: #6c5ce7;
+  --success-color: #28a745;
+  --danger-color: #ff4757;
+
+  // Fond cohérent avec la page Studio
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/images/cars.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 120px 2rem 60px; // Espace pour le header et le footer
+  color: white;
+}
+
+.cours-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: rgba(22, 25, 42, 0.5); // Effet verre plus sombre
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  border-radius: 24px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+}
+
+.add-task-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+
+  input[type="text"] {
+    flex-grow: 1;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.5);
+    }
+  }
+
+  button[type="submit"] {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #5a4ac9; // Un peu plus sombre
+    }
+  }
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border-left: 4px solid rgba(255, 255, 255, 0.1);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .task-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    flex-grow: 1;
+  }
+
+  .checkbox {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    transition: all 0.2s ease;
+
+    &::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--success-color);
+      transform: scale(0);
+      transition: transform 0.2s ease-out;
+    }
+  }
+
+  .task-title {
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+  }
+
+  .delete-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    padding: 0 0.5rem;
+    line-height: 1;
+
+    &:hover {
+      opacity: 1;
+      color: var(--danger-color);
+      transform: scale(1.2);
+    }
+  }
+
+  // État "complété"
+  &.completed {
+    border-left-color: var(--success-color);
+
+    .task-title {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+
+    .checkbox {
+      border-color: var(--success-color);
+      &::after {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  opacity: 0.6;
+  font-style: italic;
+  font-size: 1.1rem;
+}

@@ -1,21 +1,37 @@
-<section class="about-section" id="studio">
-  <div class="about-container">
+<section class="studio-preview">
+  <div class="studio-content">
+    <span class="pre-title">LE STUDIO</span>
+    <h2 class="main-title">Comment atteindre le Focus Profond ?</h2>
     
-    <div class="about-text">
-      <div class="blue-dash"></div>
-      <span class="sub-label">LE STUDIO</span>
-      <h2 class="about-title">How to be focus deeply?</h2>
-      <p class="about-description">
-        « Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
-        enim ad minim veniam, quis nostrum exercitationem ullam 
-        corporis suscipit laboriosam,
-      </p>
-    </div>
+    <p class="description">
+      Le "Deep Work" n'est pas inné, c'est un environnement que l'on crée. 
+      Notre Studio combine science sonore et gestion du temps pour aligner vos neurones.
+    </p>
 
-    <div class="about-image">
-      <img src="/images/AAA.webp" alt="Bureau de travail avec un ordinateur portable">
-    </div>
+    <ul class="benefits-list">
+      <li>
+        <span class="icon">🎯</span>
+        <div>
+          <strong>Isolement Sonore</strong>
+          <p>Masquez les distractions avec des fréquences optimisées.</p>
+        </div>
+      </li>
+      <li>
+        <span class="icon">⏱️</span>
+        <div>
+          <strong>Méthode Pomodoro</strong>
+          <p>Travaillez par cycles pour éviter la fatigue mentale.</p>
+        </div>
+      </li>
+    </ul>
 
+    <button [routerLink]="['/studio']" class="btn-primary">Entrer dans le Studio</button>
+  </div>
+
+  <div class="studio-visual">
+    <div class="visual-card">
+       <div class="pulse-circle"></div>
+       <img src="images/AAA.webp" alt="Aperçu Studio">
+    </div>
   </div>
 </section>

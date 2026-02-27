@@ -1,12 +1,21 @@
-<div class="mini-timer">
-  <div class="time-display" [class.running]="timerService.isRunning$ | async">{{ displayTime$ | async }}</div>
-  
+<div class="timer-container">
+  <div class="progress-container">
+    <svg viewBox="0 0 100 100">
+      <circle class="bg" cx="50" cy="50" r="45"></circle>
+      <circle class="progress" cx="50" cy="50" r="45"
+              [style.stroke-dashoffset]="calculateOffset()"></circle>
+    </svg>
+    
+    <div class="time-display">
+      <span class="minutes">{{ formatTime() }}</span>
+      <span class="label">FOCUS</span>
+    </div>
+  </div>
+
   <div class="controls">
-    @if (!(timerService.isRunning$ | async)) {
-      <button (click)="timerService.start()">▶</button>
-    } @else {
-      <button (click)="timerService.pause()">II</button>
-    }
-    <button (click)="timerService.reset()" class="btn-reset">↺</button>
+    <button (click)="toggleTimer()" class="btn-play">
+      {{ isActive ? '⏸' : '▶' }}
+    </button>
+    <button (click)="resetTimer()" class="btn-reset">↺</button>
   </div>
 </div>
