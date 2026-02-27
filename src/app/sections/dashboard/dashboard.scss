@@ -10,7 +10,7 @@
     url('/images/cars.jpg') no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
-  padding: 120px 2rem 60px;
+  padding: 140px 2rem 60px;
   color: white;
 }
 
@@ -109,6 +109,10 @@
     padding: 0 1rem;
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.8rem;
+
+    @media (max-width: 600px) {
+      font-size: 0.7rem; // Plus petit sur mobile
+    }
   }
 }
 

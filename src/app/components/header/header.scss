@@ -51,7 +51,6 @@
 
   .nav-links {
     display: flex;
-    gap: 40px;
     gap: 2.5rem;
     list-style: none;
 
@@ -89,6 +88,21 @@
         color: #1a4f9c;
         font-weight: 700;
       }
+    }
+  }
+
+  // Responsive Mobile
+  @media (max-width: 768px) {
+    padding: 15px 0;
+
+    .nav-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .nav-links {
+      gap: 1.5rem;
+      font-size: 0.9rem;
     }
   }
 }
