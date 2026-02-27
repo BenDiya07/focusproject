@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .progress-container {
   position: relative;
   width: 250px;
@@ -78,7 +80,7 @@
       border-color: #1a4f9c;
       
       &:hover {
-        background: lighten(#1a4f9c, 5%);
+        background: color.adjust(#1a4f9c, $lightness: 5%);
       }
     }
   }

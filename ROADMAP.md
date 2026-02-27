@@ -21,6 +21,10 @@
   - **Graphique :** Visualisation (simulée) de l'activité hebdomadaire.
 - **Section About :**
   - Présentation du projet avec mise en page responsive et animations.
+- **Interface Globale :**
+  - **Header** réactif et adaptatif au scroll.
+  - **Footer** complet avec liens sociaux.
+  - **Page Contact** fonctionnelle avec formulaire (simulation/Formspree).
 
 ## 🚀 Prochaines Étapes (Next Steps)
 
@@ -36,9 +40,7 @@
 
 ### Moyen Terme (Medium Term)
 - [ ] **Thèmes :**
-  - Implémenter un toggle Dark Mode / Light Mode global.
-- [ ] **Interface Globale :**
-  - Créer le composant Footer pour finaliser la structure.
+  - Implémenter un toggle Dark Mode / Light Mode global via des variables CSS.
 - [ ] **Amélioration du Graphique :**
   - Rendre le graphique du Dashboard réel en stockant l'historique des tâches par date.
 
@@ -50,4 +52,5 @@
 
 ## 🐛 Améliorations Techniques
  - [ ] Optimisation des fichiers audio (formats WebM/Ogg).
+ - [ ] **Refactorisation du State Management :** Centraliser 100% de la logique des tâches dans `TaskService` et l'utiliser dans le composant `Cours`.
  - [ ] Accessibilité (A11y) : Navigation au clavier et labels ARIA.

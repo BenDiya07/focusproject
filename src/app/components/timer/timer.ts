@@ -30,7 +30,6 @@ export class Timer implements OnDestroy {
       } else {
         this.pauseTimer();
         this.isActive = false;
-        // TODO: Add sound notification here
       }
     }, 1000);
   }
