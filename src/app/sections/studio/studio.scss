@@ -1,0 +1,97 @@
+// Utilisation de variables CSS (:host) pour une meilleure maintenabilité et thématisation.
+// Les couleurs sont centralisées et peuvent être facilement modifiées.
+:host {
+  --studio-bg-color: #f8f9fa;
+  --sound-card-bg: #ffffff;
+  --sound-card-shadow: rgba(0, 0, 0, 0.08);
+  --sound-card-hover-shadow: rgba(0, 0, 0, 0.12);
+  --sound-card-active-bg: #eff6ff; // Bleu très clair pour l'état actif
+  --sound-card-active-border: #3b82f6; // Le bleu utilisé dans le reste de l'application
+  --text-color: #1f2937;
+  --volume-slider-thumb: #3b82f6;
+}
+
+.studio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // Le padding-top est augmenté pour laisser de la place au header (qui est en position fixed).
+  // La valeur (ex: 6rem) doit correspondre à la hauteur de votre header.
+  padding: 6rem 2rem 4rem;
+  background-color: var(--studio-bg-color);
+  min-height: 50vh;
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+  color: var(--text-color);
+  text-align: center;
+}
+
+// Utilisation de Grid pour un alignement propre et responsive des cartes de son.
+.sound-grid {
+  display: grid;
+  // Crée des colonnes réactives qui s'adaptent à la largeur de l'écran.
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 3.5rem;
+}
+
+// Convention BEM-like (sound-card, sound-card__emoji) pour une structure claire.
+.sound-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: var(--sound-card-bg);
+  border-radius: 16px;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 12px var(--sound-card-shadow);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--sound-card-hover-shadow);
+  }
+
+  &.active {
+    background-color: var(--sound-card-active-bg);
+    border-color: var(--sound-card-active-border);
+    transform: translateY(-2px); // Léger soulèvement pour l'état actif
+  }
+
+  &__emoji {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    user-select: none; // Empêche l'emoji d'être sélectionné au clic
+  }
+
+  &__name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    user-select: none;
+  }
+}
+
+.volume-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+
+  &__slider {
+    // Utilisation de `accent-color` pour un style moderne et simple du slider.
+    accent-color: var(--volume-slider-thumb);
+    width: 100%;
+    cursor: pointer;
+  }
+}

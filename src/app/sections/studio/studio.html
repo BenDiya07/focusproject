@@ -1,0 +1,22 @@
+<section class="studio-container">
+  <h2>Le Studio</h2>
+  
+  <div class="sound-grid">
+    @for (s of ['rain', 'cafe', 'forest', 'lofi']; track s) {
+      <div class="sound-card" 
+           [class.active]="audioService.activeSound() === s"
+           (click)="play(s)">
+        <span class="emoji">{{ getEmoji(s) }}</span>
+        <span>{{ getName(s) }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="volume-control">
+    <label>Volume</label>
+    <input type="range" 
+           min="0" max="1" step="0.1" 
+           [value]="volume" 
+           (input)="updateVolume($event)">
+  </div>
+</section>
