@@ -1,28 +1,30 @@
 <footer class="main-footer">
-  <div class="footer-content">
+  <div class="container footer-content">
     
-    <div class="footer-logo" routerLink="/" style="cursor: pointer;">
-      <img src="images/read.png" alt="Study Chill">
-      <h2>Study chill</h2>
+    <div class="footer-top">
+      <div class="footer-brand" routerLink="/" style="cursor: pointer;">
+        <img src="images/read.png" alt="Study Chill" class="footer-logo">
+        <h2 class="brand-name">Study Chill</h2>
+      </div>
+
+      <div class="social-links">
+        @for (link of socials; track link.name) {
+          <a [href]="link.url" target="_blank" rel="noopener noreferrer" class="social-icon">
+            <img [src]="link.icon" [alt]="link.name">
+          </a>
+        }
+      </div>
     </div>
 
-    <div class="social-links">
-      @for (link of socials; track link.name) {
-        <a [href]="link.url" target="_blank" rel="noopener noreferrer">
-          <img [src]="link.icon" [alt]="link.name">
-        </a>
-      }
-    </div>
+    <hr class="footer-divider">
 
     <div class="footer-bottom">
-      <div class="legal-links">
-        
+      <nav class="legal-links">
         <a routerLink="/contact">Contact</a>
-        
-      </div>
+       </nav>
       
       <p class="copyright">
-        © {{ currentYear }} Study Chill. Made for deep thinkers.
+        © {{ currentYear }} <span>Study Chill</span>. Made for deep thinkers.
       </p>
     </div>
 
