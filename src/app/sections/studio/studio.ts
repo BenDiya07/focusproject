@@ -1,8 +1,8 @@
-import { Component, inject, AfterViewInit } from '@angular/core'; // Ajoute AfterViewInit
 import { CommonModule } from '@angular/common';
-import { AudioService } from '../../services/audio.service';
+import { AfterViewInit, Component, inject } from '@angular/core'; // Ajoute AfterViewInit
 import { animate, stagger } from 'animejs';
 import { Timer } from "../../components/timer/timer";
+import { AudioService } from '../../core/services/audio.service';
 
 @Component({
   selector: 'app-studio',

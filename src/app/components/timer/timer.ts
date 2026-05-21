@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, signal } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
+import { TimerService } from '../../core/services/timer.service';
 
 @Component({
   selector: 'app-timer',
@@ -9,57 +10,42 @@ import { Component, OnDestroy, signal } from '@angular/core';
   styleUrls: ['./timer.scss']
 })
 export class Timer implements OnDestroy {
-  totalSeconds = 25 * 60;
-  timeLeft = signal(25 * 60);
-  isActive = false;
-  private intervalId: any;
+  private timerService = inject(TimerService);
+
+  get timeLeft() {
+    return this.timerService.timeLeft();
+  }
+
+  get isActive() {
+    return this.timerService.isRunning();
+  }
 
   toggleTimer() {
-    this.isActive = !this.isActive;
     if (this.isActive) {
-      this.startTimer();
+      this.timerService.pause();
     } else {
-      this.pauseTimer();
-    }
-  }
-
-  startTimer() {
-    this.intervalId = setInterval(() => {
-      if (this.timeLeft() > 0) {
-        this.timeLeft.update(t => t - 1);
-      } else {
-        this.pauseTimer();
-        this.isActive = false;
-      }
-    }, 1000);
-  }
-
-  pauseTimer() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
+      this.timerService.start();
     }
   }
 
   resetTimer() {
-    this.pauseTimer();
-    this.isActive = false;
-    this.timeLeft.set(this.totalSeconds);
+    this.timerService.reset();
   }
 
   calculateOffset() {
     const circumference = 283; // 2 * Math.PI * 45
-    const progress = this.timeLeft() / this.totalSeconds;
+    const progress = this.timeLeft / (25 * 60);
     return circumference * (1 - progress);
   }
 
   formatTime() {
-    const time = this.timeLeft();
+    const time = this.timeLeft;
     const mins = Math.floor(time / 60);
     const secs = time % 60;
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   }
 
   ngOnDestroy() {
-    this.pauseTimer();
+    this.timerService.pause();
   }
 }

@@ -3,10 +3,8 @@ import { Injectable, signal } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class AudioService {
   private audio = new Audio();
-  
-  // État réactif du son et du volume
   activeSound = signal<string | null>(null);
-  volume = signal<number>(0.5); // Volume par défaut à 50%
+  volume = signal<number>(0.5);
 
   private soundPaths: Record<string, string> = {
     rain: 'sounds/rain.mp3',
@@ -19,7 +17,7 @@ export class AudioService {
     return Object.keys(this.soundPaths);
   }
 
-  play(sound: string) {
+  play(sound: string): void {
     if (this.activeSound() === sound) {
       this.stop();
       return;
@@ -35,12 +33,12 @@ export class AudioService {
     this.activeSound.set(sound);
   }
 
-  stop() {
+  stop(): void {
     this.audio.pause();
     this.activeSound.set(null);
   }
 
-  setVolume(val: number) {
+  setVolume(val: number): void {
     this.volume.set(val);
     this.audio.volume = val;
   }
