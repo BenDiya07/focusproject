@@ -3,54 +3,54 @@
 ## 🟢 État Actuel (Current State)
 
 ### Architecture & Tech Stack
- - **Framework :** Angular (v17+ avec Signals & Standalone Components)
-- **Styles :** SCSS avec utilisation de variables CSS (`:host`) pour la maintenabilité et le theming.
-- **Layout :** Responsive design utilisant CSS Grid (`auto-fit`) et Flexbox.
- - **State Management :** Service dédié (`TaskService`) utilisant des Signals (`computed`, `effect`).
+- **Framework :** Angular (v21 avec Standalone Components et Signals).
+- **Styles :** SCSS avec un design system léger basé sur des variables CSS globales.
+- **Layout :** Responsive, header fixe et menu mobile adaptatif.
+- **State Management :** Services Angular dédiés (`DashboardService`, `TimerService`, `ThemeService` placeholder).
 
 ### Fonctionnalités Implémentées
-- **Section Studio (UI) :**
-  - **Cartes de son :** Affichage interactif avec animations CSS fluides.
-  - **Guide de Focus :** Section de conseils intégrée pour l'utilisateur.
-  - **Timer Circulaire :** Chronomètre SVG animé avec gestion du temps via Signals.
-- **Section Cours (Tasks) :**
-  - Gestion complète des tâches (Ajout, Suppression, Validation).
-  - Persistance automatique via `localStorage`.
-- **Section Dashboard :**
-  - **Statistiques :** Affichage dynamique du total, des tâches complétées et du taux de réussite.
-  - **Graphique :** Visualisation (simulée) de l'activité hebdomadaire.
-- **Section About :**
-  - Présentation du projet avec mise en page responsive et animations.
-- **Interface Globale :**
-  - **Header** réactif et adaptatif au scroll.
-  - **Footer** complet avec liens sociaux.
-  - **Page Contact** fonctionnelle avec formulaire (simulation/Formspree).
+- **Design System Global :**
+  - Variables CSS partagées (`--accent-color`, `--radius-*`, `--shadow-*`, etc.).
+  - Styles de base pour `.card`, `.btn`, `input`, `textarea` et `.glass`.
+- **Header / Navigation :**
+  - Header fixe avec effet de verre.
+  - Menu mobile responsive avec bouton hamburger et ouverture animée.
+- **Thème :**
+  - Dark mode global retiré ; interface stable en thème clair.
+- **Dashboard :**
+  - `DashboardService` expose des métriques de session.
+  - Dashboard structurel simplifié sans Chart.js pour l’instant.
+- **Timer & Session :**
+  - `TimerService` corrigé pour des sessions plus fiables.
 
 ## 🚀 Prochaines Étapes (Next Steps)
 
-### Court Terme (Short Term)
-- [ ] **Moteur Audio (Audio Service) :**
-  - Implémenter un service Angular pour charger et jouer les fichiers audio.
-  - Gérer la lecture en boucle (loop) fluide.
-  - Permettre le mixage de plusieurs sons simultanément.
-- [ ] **Logique Studio :**
-  - Connecter le slider de volume de l'UI au volume réel de l'élément `<audio>`.
- - [ ] **Notifications Timer :**
-  - Ajouter un son ou une notification navigateur à la fin du timer.
+### Court Terme
+- [ ] **Audio Studio :**
+  - Ajouter un service audio pour la lecture des sons.
+  - Lier les contrôles UI au volume et au statut de lecture.
+- [ ] **Dashboard analytique :**
+  - Ajouter des visualisations réelles de session.
+  - Stocker l'historique par date.
+- [ ] **UI System :**
+  - Étendre les tokens de design à toutes les sections.
+  - Uniformiser les cartes, boutons et formulaires.
 
-### Moyen Terme (Medium Term)
-- [ ] **Thèmes :**
-  - Implémenter un toggle Dark Mode / Light Mode global via des variables CSS.
-- [ ] **Amélioration du Graphique :**
-  - Rendre le graphique du Dashboard réel en stockant l'historique des tâches par date.
+### Moyen Terme
+- [ ] **Persistance avancée :**
+  - Sauvegarder l'historique des sessions, des tâches et des réglages.
+- [ ] **Accessibilité :**
+  - Renforcer la navigation clavier, les rôles ARIA et le contraste.
+- [ ] **Dashboard amélioré :**
+  - Ajouter de vrais graphiques et des métriques d'activité.
 
-### Long Terme (Long Term)
- - [ ] **Persistance Avancée :**
-  - Sauvegarder le mix actuel (sons actifs et volumes).
-- [ ] **Presets :**
-  - Proposer des mélanges prédéfinis (ex: "Café un jour de pluie").
+### Long Terme
+- [ ] **Mix audio / presets :**
+  - Sauvegarder les réglages sonores et proposer des presets.
+- [ ] **Expérience produit :**
+  - Créer une UX plus immersive avec des animations premium et une structure plus complète.
 
 ## 🐛 Améliorations Techniques
- - [ ] Optimisation des fichiers audio (formats WebM/Ogg).
- - [ ] **Refactorisation du State Management :** Centraliser 100% de la logique des tâches dans `TaskService` et l'utiliser dans le composant `Cours`.
- - [ ] Accessibilité (A11y) : Navigation au clavier et labels ARIA.
+- [ ] Optimiser les performances CSS et la gestion responsive.
+- [ ] Nettoyer les services métier pour isoler l’UI de la logique.
+- [ ] Retirer les dépendances inutilisées et simplifier le code.

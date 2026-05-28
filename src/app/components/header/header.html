@@ -7,12 +7,22 @@
       <span class="logo-text">Study chill</span>
     </div>
 
+    <button
+      type="button"
+      class="menu-toggle"
+      (click)="toggleMenu()"
+      aria-label="Ouvrir le menu"
+    >
+      <span *ngIf="!isMenuOpen">☰</span>
+      <span *ngIf="isMenuOpen">✕</span>
+    </button>
 
-    <ul class="nav-links">
-      <li><a routerLink="/" routerLinkActive="active-link">Accueil</a></li>
-      <li><a routerLink="/cours" routerLinkActive="active-link">Cours</a></li>
-      <li><a routerLink="/studio" routerLinkActive="active-link">Studio</a></li>
-      <li><a routerLink="/contact" routerLinkActive="active-link">Contact</a></li>
+    <ul class="nav-links" [class.open]="isMenuOpen">
+      <li><a routerLink="/" routerLinkActive="active-link" (click)="closeMenu()">Accueil</a></li>
+      <li><a routerLink="/cours" routerLinkActive="active-link" (click)="closeMenu()">Cours</a></li>
+      <li><a routerLink="/studio" routerLinkActive="active-link" (click)="closeMenu()">Studio</a></li>
+      <li><a routerLink="/contact" routerLinkActive="active-link" (click)="closeMenu()">Contact</a></li>
     </ul>
+
   </nav>
 </header>

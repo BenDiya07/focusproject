@@ -11,10 +11,19 @@ import { RouterLink } from '@angular/router';
 })
 export class Header {
   isScrolled = false;
+  isMenuOpen = false;
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     // Si on défile de plus de 50px, on active le mode "scrolled"
     this.isScrolled = window.scrollY > 50;
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
   }
 }
