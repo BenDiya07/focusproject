@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class AudioService {
@@ -22,6 +22,13 @@ export class AudioService {
     lofi: 'sounds/lofi.mp3'
   };
 
+  constructor() {
+    // Synchronise automatiquement le volume dès que le signal change
+    effect(() => {
+      this.audio.volume = this.volume();
+    });
+  }
+
   // Retourne la liste des sons disponibles pour l'interface
   get availableSounds(): string[] {
     return Object.keys(this.soundPaths);
@@ -40,7 +47,6 @@ export class AudioService {
     // Définit le fichier audio à jouer
     this.audio.src = this.soundPaths[sound];
     this.audio.loop = true; // Lecture en boucle
-    this.audio.volume = this.volume(); // Applique le volume actuel
 
     // Lance la lecture et capture les erreurs éventuelles
     this.audio.play().catch(err => {
@@ -50,6 +56,14 @@ export class AudioService {
     // Marque le son comme actif
     this.activeSound.set(sound);
     this.isPlaying.set(true);
+  }
+
+  // Reprend la lecture sans changer le son ni toggler
+  resume(): void {
+    if (this.activeSound()) {
+      this.audio.play();
+      this.isPlaying.set(true);
+    }
   }
 
   // Met le son en pause
@@ -64,6 +78,12 @@ export class AudioService {
     }
   }
 
+  // Met en pause (explicite pour le bouton Pause)
+  pause(): void {
+    this.audio.pause();
+    this.isPlaying.set(false);
+  }
+
   // Arrête la lecture audio en cours
   stop(): void {
     this.audio.pause();
@@ -76,6 +96,5 @@ export class AudioService {
   // Modifie le volume et l'applique immédiatement à l'instance audio
   setVolume(val: number): void {
     this.volume.set(val); // Met à jour le signal de volume
-    this.audio.volume = val; // Applique le volume à l'instance audio
   }
 }
