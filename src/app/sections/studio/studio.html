@@ -5,12 +5,10 @@
   </div>
 
   <div class="section-divider"></div>
-  
+
   <div class="sound-grid">
     @for (s of sounds; track s) {
-      <div class="sound-card" 
-           [class.active]="audioService.activeSound() === s"
-           (click)="play(s)">
+      <div class="sound-card" #card [class.active]="audioService.activeSound() === s" (click)="play(s, card)">
         <span class="emoji">{{ getEmoji(s) }}</span>
         <span>{{ getName(s) }}</span>
 
@@ -28,9 +26,29 @@
 
   <div class="volume-control">
     <label>Volume</label>
-    <input type="range" 
-           min="0" max="1" step="0.1" 
-           [value]="volume" 
-           (input)="updateVolume($event)">
+    <input
+      type="range"
+      min="0"
+      max="1"
+      step="0.1"
+      [value]="volume"
+      (input)="updateVolume($event)"
+    />
+    <div class="play-button">
+      <p-button 
+        icon="pi pi-play" 
+        label="Lecture"
+        [disabled]="audioService.isPlaying()"
+        (onClick)="audioService.activeSound() ? audioService.resume() : play('rain')"> 
+      </p-button>
+      <p-button
+        icon="pi pi-pause"
+        label="Pause"
+        severity="contrast"
+        (onClick)="audioService.pause()"
+      >
+      </p-button>
+      
+    </div>
   </div>
 </section>

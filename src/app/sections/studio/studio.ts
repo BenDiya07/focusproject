@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, inject } from '@angular/core'; // Ajoute AfterViewInit
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core'; // Ajoute AfterViewInit
 import { animate, stagger } from 'animejs';
+import { ButtonModule } from 'primeng/button';
 import { Timer } from "../../components/timer/timer";
 import { AudioService } from '../../core/services/audio.service';
 
 @Component({
   selector: 'app-studio',
   standalone: true,
-  imports: [CommonModule, Timer],
+  imports: [CommonModule, Timer, ButtonModule],
   templateUrl: './studio.html',
   styleUrl: './studio.scss'
 })
-export class Studio implements AfterViewInit {
+export class Studio implements OnInit, AfterViewInit {
   ngOnInit() {
     // Force le scroll en haut dès que le composant est chargé
     window.scrollTo(0, 0);
@@ -26,7 +27,7 @@ export class Studio implements AfterViewInit {
     lofi: { emoji: '🎧', name: 'Lofi Beat' },
   };
 
-  // 1️⃣ Animation d'entrée quand on arrive sur la page
+  //  Animation d'entrée quand on arrive sur la page
 ngAfterViewInit() {
   animate(
     '.sound-card',
@@ -41,13 +42,13 @@ ngAfterViewInit() {
   });
 }
 
-  // 2️⃣ Animation boostée quand on clique sur une musique
- play(sound: string) {
+  //  Animation boostée quand on clique sur une musique
+ play(sound: string, element?: HTMLElement) {
   this.audioService.play(sound);
 
-  if (this.audioService.activeSound() === sound) {
+  if (this.audioService.activeSound() === sound && element) {
     animate(
-      `.sound-card.active`,
+      element,
       {
       
       scale: [1, 1.05, 1],

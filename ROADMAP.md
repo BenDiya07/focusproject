@@ -26,7 +26,7 @@
 ## 🚀 Prochaines Étapes (Next Steps)
 
 ### Court Terme
-- [ ] **Audio Studio :**
+- [x] **Audio Studio :**
   - Ajouter un service audio pour la lecture des sons.
   - Lier les contrôles UI au volume et au statut de lecture.
 - [ ] **Dashboard analytique :**
