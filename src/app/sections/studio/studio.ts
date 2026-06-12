@@ -3,11 +3,12 @@ import { AfterViewInit, Component, inject } from '@angular/core'; // Ajoute Afte
 import { animate, stagger } from 'animejs';
 import { Timer } from "../../components/timer/timer";
 import { AudioService } from '../../core/services/audio.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-studio',
   standalone: true,
-  imports: [CommonModule, Timer],
+  imports: [CommonModule, Timer, ButtonModule],
   templateUrl: './studio.html',
   styleUrl: './studio.scss'
 })
@@ -26,7 +27,7 @@ export class Studio implements AfterViewInit {
     lofi: { emoji: '🎧', name: 'Lofi Beat' },
   };
 
-  // 1️⃣ Animation d'entrée quand on arrive sur la page
+  //  Animation d'entrée quand on arrive sur la page
 ngAfterViewInit() {
   animate(
     '.sound-card',
@@ -41,7 +42,7 @@ ngAfterViewInit() {
   });
 }
 
-  // 2️⃣ Animation boostée quand on clique sur une musique
+  //  Animation boostée quand on clique sur une musique
  play(sound: string) {
   this.audioService.play(sound);
 

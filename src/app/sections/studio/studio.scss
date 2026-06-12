@@ -81,7 +81,7 @@
     color: rgba(255, 255, 255, 0.9);
     font-size: 1rem;
     transition: color 0.3s ease;
-  }
+  } // Styles spécifiques pour la carte active, avec un effet de surbrillance plus prononcé
 
   &.active {
     background: rgba(26, 79, 156, 0.3); // Bleu translucide
@@ -93,7 +93,7 @@
     }
   }
 }
-
+ // Styles pour l'égaliseur animé, avec des barres qui rebondissent pour indiquer que le son est actif
 .equalizer {
   display: flex;
   align-items: flex-end;
@@ -115,7 +115,7 @@
     &:nth-child(4) { height: 40%; animation-delay: 0.6s; }
   }
 }
-
+ // Animation de rebond pour les barres de l'égaliseur
 @keyframes bounce {
   from {
     transform: scaleY(0.2);
@@ -124,8 +124,8 @@
     transform: scaleY(1);
   }
 }
-
-.volume-control {
+ // Styles pour les contrôles de volume et de lecture, avec une mise en page centrée et cohérente avec le thème général
+.volume-control, .play-button {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -151,4 +151,11 @@
     // Style moderne pour le slider, utilise la couleur primaire
     accent-color: var(--primary-color);
   }
+}
+ // On peut aussi ajouter une classe spécifique pour les boutons de lecture/pause pour les aligner horizontalement
+.play-button{
+  flex-direction: row;
+  justify-content: space-around;
+  border-radius: 16px;
+  align-items: center;
 }
