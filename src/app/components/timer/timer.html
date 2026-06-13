@@ -18,4 +18,24 @@
     </button>
     <button (click)="resetTimer()" class="btn-reset">↺</button>
   </div>
+
+  <div class="timer-config">
+  <label>Durée (minutes)</label>
+
+  <input
+    type="number"
+    min="1"
+    max="180"
+    [value]="getDurationMinutes()"
+    (change)="changeDuration($event)"
+  />
+</div>
+
+<div class="presets">
+  <button (click)="setDuration(15)">15 min</button>
+  <button (click)="setDuration(25)">25 min</button>
+  <button (click)="setDuration(50)">50 min</button>
+  <button (click)="setDuration(90)">90 min</button>
+</div>
+
 </div>

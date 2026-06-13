@@ -1,12 +1,8 @@
 <section class="dashboard">
-
   <div class="stats-grid">
-
     <div class="stat-card">
       <span class="stat-label">Temps total</span>
-      <span class="stat-value">
-        {{ dashboardService.totalStudyTime() }} min
-      </span>
+      <span class="stat-value"> {{ dashboardService.totalStudyTime() }} min </span>
     </div>
 
     <div class="stat-card">
@@ -18,9 +14,7 @@
 
     <div class="stat-card">
       <span class="stat-label">Moyenne</span>
-      <span class="stat-value">
-        {{ dashboardService.averageSession() }} min
-      </span>
+      <span class="stat-value"> {{ dashboardService.averageSession() }} min </span>
     </div>
 
     <div class="stat-card">
@@ -30,6 +24,14 @@
       </span>
     </div>
 
-  </div>
+    <div class="chart-card">
+      <h3>Historique des sessions</h3>
 
+      <p-chart 
+        type="bar" 
+        [data]="chartData()" 
+        [options]="chartOptions"> 
+      </p-chart>
+    </div>
+  </div>
 </section>

@@ -5,8 +5,23 @@ import { SessionService } from './session.service';
   providedIn: 'root'
 })
 export class TimerService {
-  timeLeft = signal(25 * 60);
+  private initialDuration = signal(25 * 60);
+  timeLeft = signal(this.initialDuration());
   isRunning = signal(false);
+
+  setDuration(minutes: number) {
+    const seconds = minutes * 60;
+    this.initialDuration.set(seconds);
+    
+    // Met à jour le temps restant si le chrono n'est pas déjà lancé
+    if (!this.isRunning()) {
+      this.timeLeft.set(seconds);
+    }
+  }
+
+  getDurationMinutes() {
+    return Math.floor(this.initialDuration() / 60);
+  }
 
   private intervalId?: number;
 
@@ -35,18 +50,18 @@ export class TimerService {
 
   reset(): void {
     this.pause();
-    this.timeLeft.set(25 * 60);
+    this.timeLeft.set(this.initialDuration());
   }
 
   stop(): void {
     this.pause();
 
     const now = new Date();
-    const session = {
+    const session: any = {
       id: crypto.randomUUID(),
       startedAt: now,
       completedAt: now,
-      duration: 25 * 60,
+      duration: this.initialDuration(),
       completed: true,
       category: 'focus'
     };
