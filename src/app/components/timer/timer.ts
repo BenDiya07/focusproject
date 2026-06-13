@@ -7,17 +7,24 @@ import { TimerService } from '../../core/services/timer.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './timer.html',
-  styleUrls: ['./timer.scss']
+  styleUrl: './timer.scss'
 })
 export class Timer implements OnDestroy {
-  private timerService = inject(TimerService);
+  public timerService = inject(TimerService);
 
   get timeLeft() {
     return this.timerService.timeLeft();
   }
 
-  get isActive() {
+  get isActive(): boolean {
     return this.timerService.isRunning();
+  }
+
+  // Utilisé par [value] dans le template
+  getDurationMinutes() { return this.timerService.getDurationMinutes(); }
+
+  setDuration(minutes: number) {
+    this.timerService.setDuration(minutes);
   }
 
   toggleTimer() {
@@ -34,7 +41,8 @@ export class Timer implements OnDestroy {
 
   calculateOffset() {
     const circumference = 283; // 2 * Math.PI * 45
-    const progress = this.timeLeft / (25 * 60);
+    const totalSeconds = this.getDurationMinutes() * 60;
+    const progress = this.timeLeft / (totalSeconds || 1);
     return circumference * (1 - progress);
   }
 
@@ -44,6 +52,16 @@ export class Timer implements OnDestroy {
     const secs = time % 60;
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   }
+
+  changeDuration(event: Event) {
+  const value = Number(
+    (event.target as HTMLInputElement).value
+  );
+
+  if (value >= 1 && value <= 180) {
+    this.timerService.setDuration(value);
+  }
+}
 
   ngOnDestroy() {
     this.timerService.pause();
