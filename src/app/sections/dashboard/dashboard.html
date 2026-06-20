@@ -33,5 +33,55 @@
         [options]="chartOptions"> 
       </p-chart>
     </div>
+
+     <!-- Cours -->
+
+    <div class="stat-card">
+
+      <span class="stat-label">
+        Tâches
+      </span>
+
+      <span class="stat-value">
+        {{ dashboardService.totalTasks() }}
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <span class="stat-label">
+        Terminées
+      </span>
+
+      <span class="stat-value">
+          {{ dashboardService.completedTasks() }}
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <span class="stat-label">
+        Restantes
+      </span>
+
+      <span class="stat-value">
+         {{ dashboardService.pendingTasks() }}
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <span class="stat-label">
+        Progression
+      </span>
+
+      <span class="stat-value">
+        {{ dashboardService.completionRate() }}%
+      </span>
+
+    </div>
   </div>
 </section>

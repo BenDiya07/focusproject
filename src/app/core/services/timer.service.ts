@@ -27,10 +27,16 @@ export class TimerService {
 
   constructor(private sessionService: SessionService) {}
 
+  private sessionStartedAt?: Date;
+
   start(): void {
     if (this.isRunning()) {
       return;
     }
+     if (!this.sessionStartedAt) {
+    this.sessionStartedAt = new Date();
+  }
+
 
     this.isRunning.set(true);
 
@@ -50,6 +56,8 @@ export class TimerService {
 
   reset(): void {
     this.pause();
+
+    this.sessionStartedAt = undefined;
     this.timeLeft.set(this.initialDuration());
   }
 
@@ -57,19 +65,20 @@ export class TimerService {
     this.pause();
 
     const now = new Date();
-    const session: any = {
+    const session  = {
       id: crypto.randomUUID(),
-      startedAt: now,
+      startedAt: this.sessionStartedAt ?? now,
       completedAt: now,
-      duration: this.initialDuration(),
+      duration: this.getDurationMinutes(),
       completed: true,
       category: 'focus'
     };
 
     this.sessionService.addSession(session);
+    this.sessionStartedAt = undefined;
 
     if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification('Session terminée 🎉');
+      new Notification('Session terminée ! Bravo !');
     }
   }
 }
